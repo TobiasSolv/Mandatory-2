@@ -7,6 +7,7 @@ app.use(express.static('public'));
 app.use(express.json());
 
 import page from './src/routes/+page.svelte';
+
 app.use(page);
 
 const PORT = Number(process.env.PORT) || 8080;
