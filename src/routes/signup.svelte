@@ -1,27 +1,16 @@
 <script>
-	export let form;
 </script>
 
 <h1>Create User</h1>
 
 <form method="POST">
-	<label>
-		Email:
-		<input type="email" name="email" required />
-	</label>
+	<div class="input-group">
+		<input name="email" type="email" placeholder="Email" required />
+	</div>
 
-	<label>
-		Password:
-		<input type="password" name="password" required />
-	</label>
+	<div class="input-group">
+		<input name="password" type="password" placeholder="Password" required />
+	</div>
 
 	<button type="submit">Create Account</button>
-
-	{#if form?.error}
-		<p style="color:red;">{form.error}</p>
-	{/if}
-
-	{#if form?.success}
-		<p style="color:green;">User created!</p>
-	{/if}
 </form>

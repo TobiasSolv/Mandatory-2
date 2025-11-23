@@ -1,27 +1,23 @@
 <script>
-	export let form;
+	let email = '';
+	let password = '';
 </script>
 
-<h1>Create User</h1>
+<form method="POST" class="auth-form">
+	<h1>Login</h1>
 
-<form method="POST">
-	<label>
-		Email:
-		<input type="email" name="email" required />
-	</label>
+	<div class="input-group">
+		<input name="email" type="email" placeholder="Email" bind:value={email} required />
+	</div>
 
-	<label>
-		Password:
-		<input type="password" name="password" required />
-	</label>
+	<div class="input-group">
+		<input name="password" type="password" placeholder="Password" bind:value={password} required />
+	</div>
 
-	<button type="submit">Create Account</button>
+	<button type="submit"> Login </button>
 
-	{#if form?.error}
-		<p style="color:red;">{form.error}</p>
-	{/if}
-
-	{#if form?.success}
-		<p style="color:green;">User created!</p>
-	{/if}
+	<div class="links">
+		<a href="/signup.svelte">Create an account</a>
+		<a href="/forgot-password">Forgot password?</a>
+	</div>
 </form>

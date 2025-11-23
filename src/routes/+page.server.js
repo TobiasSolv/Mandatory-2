@@ -9,19 +9,19 @@ export const actions = {
 
         console.log("SERVER RECEIVED:", email, password);
 
-        try {
-            const stmt = db.run('INSERT INTO users (email, password) VALUES (?, ?)', [email, password]);
-            stmt.run(email, password);
-            console.log(stmt)
-            return { success: true };
-        } catch (err) {
-            if (err.code === 'SQLITE_CONSTRAINT_UNIQUE') {
-                return { error: 'Email already exists.' };
-            }
-        }
+        // try {
+        //     db.run('INSERT INTO users (email, password) VALUES (?, ?)', [email, password]);
+        //     return { success: true };
+        // } catch (err) {
+        //     if (err) {
+        //         return console.log(err);
+        //     }
+        // }
 
         // removed dbQuery and used db.all
         const rows = await db.all('SELECT * FROM users WHERE email = ? AND password = ?', [email, password]);
+
+
 
         console.log("DB rows:", rows);
         console.log("DATABASE REQ DONE");
