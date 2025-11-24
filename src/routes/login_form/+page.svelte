@@ -1,4 +1,5 @@
 <script>
+	import { goto } from '$app/navigation';
 	let email = '';
 	let password = '';
 </script>
@@ -17,7 +18,7 @@
 	<button type="submit"> Login </button>
 
 	<div class="links">
-		<a href="/signup.svelte">Create an account</a>
-		<a href="/forgot-password">Forgot password?</a>
+		<a on:click={() => goto('/signup')}>Create an account</a>
+		<a on:click={() => goto('/forgot_password')}>Forgot password?</a>
 	</div>
 </form>

@@ -1,7 +1,0 @@
-CREATE TABLE if NOT EXISTS users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    email VARCHAR(255),
-    password VARCHAR(255)
-)
-INSERT INTO users (email, password)
-VALUES ('something@outlook.dk', 'pAssWOrd#321')

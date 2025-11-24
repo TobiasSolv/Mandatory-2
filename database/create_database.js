@@ -18,7 +18,8 @@ db.exec(`
 CREATE TABLE if NOT EXISTS users (
     id INTEGER PRIMARY KEY,
     email VARCHAR(255) UNIQUE NOT NULL,
-    password VARCHAR(255) NOT NULL
+    password VARCHAR(255) NOT NULL,
+    is_verified INTEGER NOT NULL DEFAULT 0
 );
 `);
 
