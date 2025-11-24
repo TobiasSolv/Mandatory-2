@@ -1,4 +1,6 @@
 import db from '../../../database/connection.js';
+import bcrypt from 'bcrypt';
+import { fail } from '@sveltejs/kit';
 //import { dbQuery } from '../../database/connection.js';
 
 export const actions = {
@@ -9,16 +11,23 @@ export const actions = {
 
         console.log("\nSERVER RECEIVED:", email, password);
 
-        // removed dbQuery and used db.all
-        const rows = await db.all('SELECT * FROM users WHERE email = ? AND password = ?', [email, password]);
+        const rows = await db.all('SELECT * FROM users WHERE email = ?', [email]);
 
         console.log("DB rows:", rows);
-        console.log("DATABASE REQ DONE");
 
-        // Do login logic here...
-        if (email !== 'test@example.com' || password !== 'secret') {
-            return { success: false, message: 'Invalid credentials' };
+        if (rows.length === 0) {
+            return fail(401, { message: 'Invalid email or password' });
         }
+
+        const user = rows[0];
+
+        const validPassword = await bcrypt.compare(password, user.password);
+
+        if (!validPassword) {
+            return fail(401, { message: 'Invalid email or password' });
+        }
+
+        console.log("LOGIN SUCCESS");
 
         return { success: true };
     }

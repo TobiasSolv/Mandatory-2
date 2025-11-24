@@ -1,10 +1,26 @@
 <script>
 	import { goto } from '$app/navigation';
+	import { enhance } from '$app/forms';
+	import toastr from 'toastr';
+
 	let email = '';
 	let password = '';
 </script>
 
-<form method="POST" class="auth-form">
+<form
+	method="POST"
+	use:enhance={() => {
+		return async ({ result }) => {
+			if (result.type === 'success' && result.status === 200) {
+				goto('/logged_in_page');
+				toastr.success('Login successful!');
+			} else {
+				toastr.error(result.type === 'error' ? result.error.message : result.data?.message);
+			}
+		};
+	}}
+	class="auth-form"
+>
 	<h1>Login</h1>
 
 	<div class="input-group">

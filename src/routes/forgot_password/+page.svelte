@@ -1,8 +1,19 @@
 <script>
 	import { goto } from '$app/navigation';
+	import toastr from 'toastr';
+
+	let email = '';
+
+	function handleLogin(event) {
+		event.preventDefault();
+		if (email) {
+			toastr.success('Success');
+			return;
+		}
+	}
 </script>
 
-<form method="POST" class="auth-form">
+<form on:submit={handleLogin} method="POST" class="auth-form">
 	<h1>Forgot password</h1>
 
 	<div class="input-group">

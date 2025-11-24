@@ -1,8 +1,23 @@
 <script>
 	import { goto } from '$app/navigation';
+	import { enhance } from '$app/forms';
+	import toastr from 'toastr';
 </script>
 
-<form method="POST" class="auth-form">
+<form
+	method="POST"
+	use:enhance={() => {
+		return async ({ result }) => {
+			if (result.type === 'success' && result.status === 200) {
+				goto('/login_form');
+				toastr.success('Signup successful!');
+			} else {
+				toastr.error(result.type === 'error' ? result.error.message : result.data?.message);
+			}
+		};
+	}}
+	class="auth-form"
+>
 	<h1>Create User</h1>
 
 	<div class="input-group">
