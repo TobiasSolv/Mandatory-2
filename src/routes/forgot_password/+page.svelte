@@ -1,28 +1,32 @@
 <script>
-	import { goto } from '$app/navigation';
+	import { enhance } from '$app/forms';
 	import toastr from 'toastr';
 
 	let email = '';
-
-	function handleLogin(event) {
-		event.preventDefault();
-		if (email) {
-			toastr.success('Success');
-			return;
-		}
-	}
 </script>
 
-<form on:submit={handleLogin} method="POST" class="auth-form">
-	<h1>Forgot password</h1>
+<form
+	method="POST"
+	use:enhance={(submitEvent) => {
+		return async ({ result }) => {
+			if (result.type === 'success' && result.data?.success) {
+				toastr.success('Reset link sent to your email!');
+			} else {
+				toastr.error(result.data?.message || 'Something went wrong');
+			}
+		};
+	}}
+	class="auth-form"
+>
+	<h1>Forgot Password</h1>
 
 	<div class="input-group">
-		<input name="email" type="email" placeholder="Email" required />
+		<input name="email" type="email" bind:value={email} placeholder="Email" required />
 	</div>
 
-	<button type="submit">Enter</button>
+	<button type="submit">Send Reset Email</button>
 
 	<div class="links">
-		<a on:click={() => goto('/login_form')}>Cancel</a>
+		<a href="/login_form">Cancel</a>
 	</div>
 </form>

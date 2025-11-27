@@ -34,7 +34,7 @@
 	<button type="submit"> Login </button>
 
 	<div class="links">
-		<a on:click={() => goto('/signup')}>Create an account</a>
-		<a on:click={() => goto('/forgot_password')}>Forgot password?</a>
+		<button on:click={() => goto('/signup')}>Create an account</button>
+		<button on:click={() => goto('/forgot_password')}>Forgot password?</button>
 	</div>
 </form>

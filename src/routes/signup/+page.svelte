@@ -31,6 +31,6 @@
 	<button type="submit">Create Account</button>
 
 	<div class="links">
-		<a on:click={() => goto('/login_form')}>Cancel</a>
+		<button on:click={() => goto('/login_form')}>Cancel</button>
 	</div>
 </form>

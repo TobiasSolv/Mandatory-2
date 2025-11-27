@@ -1,8 +1,7 @@
 import db from '../../../database/connection.js';
 import bcrypt from 'bcrypt';
 import { fail } from '@sveltejs/kit';
-import { email, welcomeEmail } from '../welcome_email.js'
-//import { dbQuery } from '../../database/connection.js';
+import { welcomeEmail } from '../../lib/welcome_email.js'
 
 export const actions = {
     default: async ({ request }) => {
@@ -19,8 +18,8 @@ export const actions = {
         }
 
         // hash password
-        const saltRounds = 10;
-        const hashedPassword = await bcrypt.hash(password, saltRounds);
+        const salt = await bcrypt.genSalt();
+        const hashedPassword = await bcrypt.hash(password, salt);
 
         try {
             await db.run('INSERT INTO users (email, password) VALUES (?, ?)', [email, hashedPassword]);

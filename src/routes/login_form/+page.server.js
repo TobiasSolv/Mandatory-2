@@ -1,10 +1,9 @@
 import db from '../../../database/connection.js';
 import bcrypt from 'bcrypt';
 import { fail } from '@sveltejs/kit';
-//import { dbQuery } from '../../database/connection.js';
 
 export const actions = {
-    default: async ({ request }) => {
+    default: async ({ request, cookies }) => {
         const formData = await request.formData();
         const email = formData.get('email');
         const password = formData.get('password');
@@ -29,6 +28,17 @@ export const actions = {
 
         console.log("LOGIN SUCCESS");
 
+        cookies.set('session_id', user.id, {
+            path: '/',
+            httpOnly: true,
+            sameSite: 'strict',
+            secure: false, // set true if using https
+            maxAge: 60 * 60 * 24 * 7 // 7 days
+        });
+
         return { success: true };
     }
 };
+
+
+
